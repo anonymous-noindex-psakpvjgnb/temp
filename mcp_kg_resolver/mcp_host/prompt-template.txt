@@ -6,11 +6,11 @@
         "1.  Construct queries connecting the entities using the target relation/attribute.\n"
         "2.  Identify the primary variable holding the answer (e.g., the object of the relation).\n"
         "3.  **Crucially:** If the answer variable represents an entity/resource (not a literal), SELECT BOTH the variable (e.g., `?answer`) AND its corresponding label (e.g., `?answerLabel`).\n"
-        "4.  **Wikidata:** Use `wd:`/`wdt:`. Include labels for the answer variable using `?answerLabel` naming. Add the `SERVICE wikibase:label {{...}}` block.\n"
+        "4.  **Wikidata:** Use `wd:`/`wdt:`. Include labels for the answer variable using `?answerLabel` naming.
         "5.  **DBpedia:** Use full URIs. Include labels for the answer variable using `?answer rdfs:label ?answerLabel . FILTER(LANG(?answerLabel) = 'en')`.\n"
         "6.  If the relation is missing, try getting a description (`dbo:abstract`, `schema:description`).\n"
         "7.  Output ONLY the two queries separated by `--- WIKIDATA ---` and `--- DBPEDIA ---` in ```sparql blocks.\n\n"
-        "--- FEW-SHOT EXAMPLES ---\n\n"
+        "--- FEW EXAMPLES ---\n\n"
         "Example 1:\n"
         "Natural Language Query: What is the capital of Germany?\n"
         "Context:\nEntities:\n- 'Germany':\n  - WD: Germany (wd:Q183)\n  - DB: Germany ([http://dbpedia.org/resource/Germany](http://dbpedia.org/resource/Germany))\nTarget Relation/Attribute:\n- Used As:\n  - WD: capital (wdt:P36)\n  - DB: capital ([http://dbpedia.org/ontology/capital](http://dbpedia.org/ontology/capital))\n\n"
@@ -18,7 +18,7 @@
         "```sparql\n"
         "SELECT ?answer ?answerLabel WHERE {{\n" # Select answer AND label
         "  wd:Q183 wdt:P36 ?answer .\n"
-        "  SERVICE wikibase:label {{ bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }}\n"
+		 "  FILTER(LANG(?answerLabel) = 'en')\n" # Filter language
         "}} LIMIT 1\n"
         "```\n\n"
         "--- DBPEDIA ---\n"
