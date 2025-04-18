@@ -1,0 +1,7 @@
+requests
+langchain_community
+ollama
+gradio
+pandas
+networkx
+matplotlib
